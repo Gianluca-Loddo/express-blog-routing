@@ -37,8 +37,8 @@ app.get('/users', (req, res) => {
 
 
 // iniziamo le operazioni CRUD -> "Create, Read, Update, Delete" (operazioni sulla risorsa) 
-// che corrispondono a ->  "INDEX, SHOW, CREATE, UPDATE, DELETE" (nomi delle operazioni/rotte)
-// ogni operazione corrisponde ad un metodo HTTP diverso (GET, POST, PUT, DELETE) -> i VERBI HTTP
+// che corrispondono a ->  "1. INDEX, 2. SHOW, 3. CREATE, 4. UPDATE, 5. MODIFY, 6. DELETE" (nomi delle operazioni/rotte)
+// ogni operazione corrisponde ad un metodo #1 HTTP diverso (GET, POST, PUT, PATCH, DELETE) -> i VERBI HTTP
 
 //1. INDEX -> ottenere tutti gli utenti (GET /users) -> già fatto sopra
 
@@ -52,3 +52,4 @@ app.get('/users/:id', (req, res) => {   // pattern della rotta '/users/:id' e pl
     }
     res.send('Mostrami il singolo utente: ' + req.params.id);
 });
+
