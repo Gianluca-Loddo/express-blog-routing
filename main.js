@@ -8,22 +8,25 @@ const port = 3000;
 
 // facciamo in modo che il nostro server ascolti le richieste sulla porta definita (avvio del server: ascolto delle richieste)
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
+
 
 // definiamo una route di tipo GET per la root
 app.get('/', (req, res) => {
-  res.send('Hello World! All inizio ero soooooloooo🎶🎵🎤 (pinguini tattici nucleari 🐧)');
+    res.send('Hello World! All inizio ero soooooloooo🎶🎵🎤 (pinguini tattici nucleari 🐧)');
 });
 
+// Configurazione della cartella 'images' per servire file statici (in questo caso le nostre immagini)
+app.use(express.static('images'));
 
 // definiamo un array di oggetti che rappresentano dei post
 const post = [
-  { id: 1, titolo: 'Primo Post', contenuto: 'Questo è il contenuto del primo post: ciambellone', immagine: '/ciambellone.jpeg', tags: ['intro', 'benvenuto'] },
-  { id: 2, titolo: 'Secondo Post', contenuto: 'Questo è il contenuto del secondo post: cracker alla barbabietola', immagine: '/cracker_barbabietola.jpeg', tags: ['aggiornamento', 'news'] },
-  { id: 3, titolo: 'Terzo Post', contenuto: 'Questo è il contenuto del terzo post: pane fritto dolce', immagine: '/pane_fritto_dolce.jpeg', tags: ['tutorial', 'javascript'] },
-  { id: 4, titolo: 'Quarto Post', contenuto: 'Questo è il contenuto del quarto post: pasta alla barbabietola', immagine: '/pasta_barbabietola.jpeg', tags: ['nodejs', 'express'] },
-  { id: 5, titolo: 'Quinto Post', contenuto: 'Questo è il contenuto del quinto post: torta paesana', immagine: '/torta_paesana.jpeg', tags: ['conclusione', 'fine'] },
+    { id: 1, titolo: 'Primo Post', contenuto: 'Questo è il contenuto del primo post: ciambellone', immagine: '/ciambellone.jpeg', tags: ['intro', 'benvenuto'] },
+    { id: 2, titolo: 'Secondo Post', contenuto: 'Questo è il contenuto del secondo post: cracker alla barbabietola', immagine: '/cracker_barbabietola.jpeg', tags: ['aggiornamento', 'news'] },
+    { id: 3, titolo: 'Terzo Post', contenuto: 'Questo è il contenuto del terzo post: pane fritto dolce', immagine: '/pane_fritto_dolce.jpeg', tags: ['tutorial', 'javascript'] },
+    { id: 4, titolo: 'Quarto Post', contenuto: 'Questo è il contenuto del quarto post: pasta alla barbabietola', immagine: '/pasta_barbabietola.jpeg', tags: ['nodejs', 'express'] },
+    { id: 5, titolo: 'Quinto Post', contenuto: 'Questo è il contenuto del quinto post: torta paesana', immagine: '/torta_paesana.jpeg', tags: ['conclusione', 'fine'] },
 ];
 
 
@@ -34,7 +37,7 @@ app.get('/posts', (req, res) => {
 
 // BOUNS (INDEX) -> ottenere tutti i post (GET /posts)
 app.get('/posts', (req, res) => {
-  res.json(post); // rispondi con i dati in formato JSON
+    res.json(post); // rispondi con i dati in formato JSON
 });
 
 
@@ -47,11 +50,11 @@ app.get('/posts', (req, res) => {
 
 //2. SHOW (R) -> ottenere un singolo post (GET /posts/:id)
 app.get('/posts/:id', (req, res) => {   // pattern della rotta '/posts/:id' e placeholder :id
-    const {id} = req.params; //Qui si sta facendo destructuring → estrae direttamente id da req.params
-                            //id è un nome convenzionale (dato da noi), si va a recuperare (req) params che contiene l'id
-   const postID = post.find((postEL) => postEL.id === parseInt(id));
+    const { id } = req.params; //Qui si sta facendo destructuring → estrae direttamente id da req.params
+    //id è un nome convenzionale (dato da noi), si va a recuperare (req) params che contiene l'id
+    const postID = post.find((postEL) => postEL.id === parseInt(id));
     if (!postID) { // se non trovi il post con quell'id
-        return res.status(404).json({message:'Pagina non trovata', error: 'not found'}); // ritorna errore 404
+        return res.status(404).json({ message: 'Pagina non trovata', error: 'not found' }); // ritorna errore 404
     }
     res.send('Mostrami il singolo post: ' + req.params.id);
 });
