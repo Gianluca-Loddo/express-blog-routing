@@ -29,7 +29,7 @@ app.get('/users', (req, res) => {
   res.send("mostro tutti gli utenti");
 });*/
 
-// BOUNS 
+// BOUNS (INDEX) -> ottenere tutti gli utenti (GET /users)
 app.get('/users', (req, res) => {
   res.json(user);
 });
@@ -40,15 +40,15 @@ app.get('/users', (req, res) => {
 // che corrispondono a ->  "INDEX, SHOW, CREATE, UPDATE, DELETE" (nomi delle operazioni/rotte)
 // ogni operazione corrisponde ad un metodo HTTP diverso (GET, POST, PUT, DELETE) -> i VERBI HTTP
 
-// INDEX -> ottenere tutti gli utenti (GET /users) -> già fatto sopra
+//1. INDEX -> ottenere tutti gli utenti (GET /users) -> già fatto sopra
 
-// definiamo una route di tipo GET per ottenere un utente specifico (SHOW)
-app.get('/users/:id', (req, res) => {
-  const userId = parseInt(req.params.id);
-  const foundUser = user.find(u => u.id === userId);
-  if (foundUser) {
-    res.json(foundUser);
-  } else {
-    res.status(404).send('User not found');
-  }
+//2. SHOW -> ottenere un singolo utente (GET /users/:id)
+app.get('/users/:id', (req, res) => {   // pattern della rotta '/users/:id' e placeholder :id
+    const {id} = req.params; //Qui si sta facendo destructuring → estrae direttamente id da req.params
+                            //id è un nome convenzionale (dato da noi), si va a recuperare (req) params che contiene l'id
+   const utenteID = user.find((utenteEL) => utenteEL.id === parseInt(id));
+    if (!utenteID) {
+        return res.status(404).json({message:'Pagina non trovata', error: 'not found'});
+    }
+    res.send('Mostrami il singolo utente: ' + req.params.id);
 });
